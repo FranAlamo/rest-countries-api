@@ -1,26 +1,45 @@
-import React, { useState, useEffect } from "react";
-const url = "https://restcountries.eu/rest/v2/all";
+import React, { useEffect, useState } from "react";
+import CountryInfo from "./CountryInfo";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
 
-  const fetchCountryData = async () => {
-    const response = await fetch(url);
-    const countries = await response.json();
-    setCountries(countries);
-    console.log(countries);
-  };
   useEffect(() => {
-    fetchCountryData();
+    fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log(countries[0]);
+  }, [countries]);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch("https://restcountries.com/v3.1/all");
+      const data = await response.json();
+      setCountries(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   return (
-    <>
-      {countries.map((country) => {
-        const { id } = country;
-        return <article key={id}>Country Data</article>;
-      })}
-    </>
+    <div>
+      <main>
+        <div className="countries-wrapper">
+          {countries.map((country, index) => (
+            <CountryInfo
+              key={index}
+              name={country.name.common}
+              population={country.population}
+              capital={country.capital}
+              region={country.region}
+              flag={country.flags.png}
+              alt={country.flags.alt}
+            />
+          ))}
+        </div>
+      </main>
+    </div>
   );
 };
 
