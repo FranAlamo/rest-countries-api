@@ -25,7 +25,7 @@ const Countries = () => {
   return (
     <div>
       <main>
-        <div className="countries-wrapper">
+        <div className="grid">
           {countries.map((country, index) => (
             <CountryInfo
               key={index}

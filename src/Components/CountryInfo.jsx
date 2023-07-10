@@ -1,6 +1,6 @@
 const CountryCard = ({ name, population, region, capital, flag, alt }) => {
   return (
-    <div className="country-card">
+    <div className="details">
       <img src={flag} alt={alt} />
       <div className="country-info">
         <h4>{name}</h4>
