@@ -64,9 +64,6 @@ img {
 .filter .form-control input::placeholder {
   color: white;
 }
-.filter .region-filter {
-  width: 100%;
-}
 
 .filter .select {
   background-color: #2b3743;
