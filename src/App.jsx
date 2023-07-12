@@ -1,14 +1,19 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Countries from "./Components/Countries";
-import Filter from "./Components/Filter";
-import Header from "./Components/Header";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Countries from "./components/Countries.jsx";
+import Filter from "./components/Filter.jsx";
+import Header from "./components/Header.jsx";
+import Country from "./components/Country.jsx";
+
 function App() {
   return (
     <Router>
       <Header />
       <Filter />
-      <Countries />
+      <Routes>
+        <Route path="/" element={<Countries />} />
+        <Route path="/countries/:name" element={<Country />} />
+      </Routes>
     </Router>
   );
 }

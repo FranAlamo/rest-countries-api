@@ -1,3 +1,8 @@
+import { Link } from "react-router-dom";
+const removeCountry = (index) => {
+  const newCountry = countries.filter((country) => country.index !== index);
+  setCountries(newCountry);
+};
 const CountryCard = ({ name, population, region, capital, flag, alt }) => {
   return (
     <div className="details">
@@ -13,6 +18,14 @@ const CountryCard = ({ name, population, region, capital, flag, alt }) => {
         <p>
           <span className="subtitle">Capital:</span> {capital}
         </p>
+        <div className="buttons">
+          <Link to={`/countries/${name}`} className="btn">
+            Learn more
+          </Link>
+          <button className="btn" onClick={() => removeCountry(index)}>
+            Remove Country
+          </button>
+        </div>
       </div>
     </div>
   );
