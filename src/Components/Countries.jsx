@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CountryInfo from "./CountryInfo";
+import { apiURL } from "../components/Api";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
@@ -8,13 +9,11 @@ const Countries = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(countries[0]);
-  }, [countries]);
+  useEffect(() => {}, [countries]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://restcountries.com/v3.1/all");
+      const response = await fetch(`${apiURL}/all`);
       const data = await response.json();
       setCountries(data);
     } catch (error) {

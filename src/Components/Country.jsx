@@ -1,103 +1,72 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { apiURL } from "../components/Api";
 import "../styles/Country.css";
 
 const Country = () => {
   const [country, setCountry] = useState([]);
-  const { name } = useParams();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const { countryName } = useParams();
+  const borders = country.map((country) => country.borders);
 
   useEffect(() => {
-    const fetchCountryData = async () => {
-      const response = await fetch(
-        `https://restcountries.eu/rest/v2/name/${name}`
-      );
-      const country = await response.json();
-      setCountry(country);
+    const getCountryByName = async () => {
+      try {
+        const res = await fetch(`${apiURL}/name/${countryName}`);
+
+        if (!res.ok) throw new Error("Could not found!");
+
+        const data = await res.json();
+
+        setCountry(data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        setError(error.message);
+      }
     };
 
-    fetchCountryData();
-  }, [name]);
+    getCountryByName();
+  }, [countryName]);
 
   return (
-    <>
-      <section className="country">
-        <Link to="/" className="btn btn-light">
-          <i className="fas fa-arrow-left"></i> Back Home
-        </Link>
-        {country.map((c) => {
-          const {
-            index,
-            flag,
-            name,
-            nativeName,
-            population,
-            region,
-            subregion,
-            capital,
-            topLevelDomain,
-            currencies,
-            languages,
-            borders,
-          } = c;
+    <div className="country">
+      <Link to="/" className="btn btn-light">
+        <i className="fas fa-arrow-left"></i> Back Home
+      </Link>
 
-          return (
-            <article key={index}>
-              <div className="country-inner">
-                <div className="flag">
-                  <img src={flag} alt={name} />
-                </div>
+      {country?.map((country, index) => (
+        <div className="country-info-container" key={index}>
+          <div className="country-info-img">
+            <img src={country.flags.png} alt="" />
+          </div>
 
-                <div className="country-details">
-                  <div>
-                    <h2>{name}</h2>
-                    <h5>
-                      Native Name: <span>{nativeName}</span>
-                    </h5>
-                    <h5>
-                      Population: <span>{population.toLocaleString()}</span>
-                    </h5>
-                    <h5>
-                      Region: <span>{region}</span>
-                    </h5>
-                    <h5>
-                      Sub Region: <span>{subregion}</span>
-                    </h5>
-                    <h5>
-                      Capital: <span>{capital}</span>{" "}
-                    </h5>
-                  </div>
+          <div className="country-info">
+            <h3>{country.name.common}</h3>
 
-                  <div>
-                    <h5>
-                      Top Level Domain: <span>{topLevelDomain}</span>
-                    </h5>
-                    <h5>
-                      Currencies: <span>{currencies[0].name}</span>
-                    </h5>
-                    <h5>
-                      Languages: <span>{languages[0].name}</span>
-                    </h5>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <h3>Border Countries: </h3>
-                <div className="borders">
-                  {borders.map((border) => {
-                    return (
-                      <ul key={border}>
-                        <li>{border}</li>
-                      </ul>
-                    );
-                  })}
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </section>
-    </>
+            <div className="country-info-left">
+              <h5>
+                Population:{" "}
+                <span>
+                  {new Intl.NumberFormat().format(country.population)}
+                </span>
+              </h5>
+              <h5>
+                Region: <span>{country.region}</span>
+              </h5>
+              <h5>
+                Sub Region: <span>{country.subregion}</span>
+              </h5>
+              <h5>
+                Capital: <span>{country.capital}</span>
+              </h5>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 

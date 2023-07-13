@@ -3,7 +3,7 @@ const removeCountry = (index) => {
   const newCountry = countries.filter((country) => country.index !== index);
   setCountries(newCountry);
 };
-const CountryCard = ({ name, population, region, capital, flag, alt }) => {
+const CountryInfo = ({ name, population, region, capital, flag, alt }) => {
   return (
     <div className="details">
       <img src={flag} alt={alt} />
@@ -31,4 +31,4 @@ const CountryCard = ({ name, population, region, capital, flag, alt }) => {
   );
 };
 
-export default CountryCard;
+export default CountryInfo;
