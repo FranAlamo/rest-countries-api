@@ -4,23 +4,21 @@ import { apiURL } from "../components/Api";
 import "../styles/Country.css";
 
 const Country = () => {
-  const [country, setCountry] = useState([]);
+  const [country, setCountry] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   const { name } = useParams();
-  const borders = country.map((country) => country.borders);
 
   useEffect(() => {
     const getCountryByName = async () => {
       try {
         const res = await fetch(`${apiURL}/name/${name}`);
 
-        if (!res.ok) throw new Error("Could not found!");
+        if (!res.ok) throw new Error("Country not found!");
 
         const data = await res.json();
-
-        setCountry(data);
+        setCountry(data[0]);
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
@@ -29,7 +27,7 @@ const Country = () => {
     };
 
     getCountryByName();
-  }, [CountryInfo]);
+  }, [name]);
 
   return (
     <div className="country">
@@ -37,35 +35,63 @@ const Country = () => {
         <i className="fas fa-arrow-left"></i> Back Home
       </Link>
 
-      {country?.map((country, index) => (
-        <div className="country-info-container" key={index}>
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p>Error: {error}</p>
+      ) : (
+        <div className="country-info-container">
           <div className="country-info-img">
-            <img src={country.flags.png} alt="" />
+            <img src={country?.flags?.png} alt="" />
           </div>
-
           <div className="country-info">
-            <h3>{country.name.common}</h3>
-
+            <h3>{country?.name?.common}</h3>
             <div className="country-info-left">
+              <h5>
+                Native Name: <span>{country?.name?.native?.common}</span>
+              </h5>
+              <h5>
+                Top Level Domain: <span>{country?.tld?.[0] || "N/A"}</span>
+              </h5>
               <h5>
                 Population:{" "}
                 <span>
-                  {new Intl.NumberFormat().format(country.population)}
+                  {new Intl.NumberFormat().format(country?.population)}
                 </span>
               </h5>
               <h5>
-                Region: <span>{country.region}</span>
+                Currencies:{" "}
+                <span>
+                  {Object.values(country?.currencies || {}).join(", ") || "N/A"}
+                </span>
               </h5>
               <h5>
-                Sub Region: <span>{country.subregion}</span>
+                Region: <span>{country?.region}</span>
               </h5>
               <h5>
-                Capital: <span>{country.capital}</span>
+                Language(s):{" "}
+                <span>
+                  {Object.values(country?.languages || {}).join(", ") || "N/A"}
+                </span>
+              </h5>
+              <h5>
+                Subregion: <span>{country?.subregion}</span>
+              </h5>
+              <h5>
+                Capital: <span>{country?.capital}</span>
+              </h5>
+              <h5>
+                Border Countries:{" "}
+                <span>
+                  {country?.borders?.length > 0
+                    ? country?.borders.join(", ")
+                    : "N/A"}
+                </span>
               </h5>
             </div>
           </div>
         </div>
-      ))}
+      )}
     </div>
   );
 };

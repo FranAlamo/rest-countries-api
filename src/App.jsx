@@ -4,6 +4,7 @@ import Countries from "./components/Countries.jsx";
 import Filter from "./components/Filter.jsx";
 import Header from "./components/Header.jsx";
 import CountryInfo from "./components/CountryInfo.jsx";
+import Country from "./Components/Country.jsx";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Filter />
       <Routes>
         <Route path="/" element={<Countries />} />
-        <Route path="/countries/:name" element={<CountryInfo />} />
+        <Route path="/countries/:name" element={<Country />} />
       </Routes>
     </Router>
   );

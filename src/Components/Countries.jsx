@@ -9,8 +9,6 @@ const Countries = () => {
     fetchData();
   }, []);
 
-  useEffect(() => {}, [countries]);
-
   const fetchData = async () => {
     try {
       const response = await fetch(`${apiURL}/all`);
@@ -32,8 +30,8 @@ const Countries = () => {
               population={country.population}
               capital={country.capital}
               region={country.region}
-              flag={country.flags.png}
-              alt={country.flags.alt}
+              flag={country.flags?.png}
+              alt={country.flags?.alt}
             />
           ))}
         </div>
