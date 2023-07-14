@@ -8,13 +8,13 @@ const Country = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const { countryName } = useParams();
+  const { name } = useParams();
   const borders = country.map((country) => country.borders);
 
   useEffect(() => {
     const getCountryByName = async () => {
       try {
-        const res = await fetch(`${apiURL}/name/${countryName}`);
+        const res = await fetch(`${apiURL}/name/${name}`);
 
         if (!res.ok) throw new Error("Could not found!");
 
@@ -29,7 +29,7 @@ const Country = () => {
     };
 
     getCountryByName();
-  }, [countryName]);
+  }, [CountryInfo]);
 
   return (
     <div className="country">

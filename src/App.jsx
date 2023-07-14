@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Countries from "./components/Countries.jsx";
 import Filter from "./components/Filter.jsx";
 import Header from "./components/Header.jsx";
-import Country from "./components/Country.jsx";
+import CountryInfo from "./components/CountryInfo.jsx";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Filter />
       <Routes>
         <Route path="/" element={<Countries />} />
-        <Route path="/countries/:name" element={<Country />} />
+        <Route path="/countries/:name" element={<CountryInfo />} />
       </Routes>
     </Router>
   );
