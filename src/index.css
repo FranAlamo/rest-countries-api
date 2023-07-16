@@ -10,6 +10,10 @@ body {
   background-color: #202d36;
   color: white;
 }
+body.light-theme {
+  background-color: white;
+  color: #202d36;
+}
 .buttons {
   display: flex;
   align-items: center;
@@ -45,6 +49,9 @@ img {
   background-color: #2b3743;
   padding: 10px 20px;
 }
+.header.light-theme {
+  background-color: white;
+}
 .grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -56,6 +63,10 @@ img {
   background-color: #2b3743;
   padding: 20px;
   border-radius: 0 0 5px 5px;
+  transition: background-color 0.6s;
+}
+.details.light-theme {
+  background-color: white;
 }
 .subtitle {
   font-weight: bold;
@@ -92,10 +103,14 @@ img {
   background-color: #2b3743;
   color: white;
   font-family: inherit;
-  padding: 12px;
+  padding: 10px;
   width: 200px;
   border: none;
   border-radius: 5px;
+}
+.form input.light-theme,
+.form select.light-theme {
+  background-color: white;
 }
 
 @media (min-width: 640px) {

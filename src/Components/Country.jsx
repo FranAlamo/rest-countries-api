@@ -30,23 +30,21 @@ const Country = () => {
   }, [name]);
 
   return (
-    <div className="country">
+    <>
       <Link to="/" className="btn btn-light">
         <i className="fas fa-arrow-left"></i> Back Home
       </Link>
+      <div className="country">
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>Error: {error}</p>
+        ) : (
+          <>
+            <img src={country?.flags?.png} className="img" alt="flag" />
 
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : (
-        <div className="country-info-container">
-          <div className="country-info-img">
-            <img src={country?.flags?.png} alt="" />
-          </div>
-          <div className="country-info">
-            <h3>{country?.name?.common}</h3>
-            <div className="country-info-left">
+            <div className="country-info-container-one">
+              <h3 className="country-name">{country?.name?.common}</h3>
               <h5>
                 Native Name: <span>{country?.name?.native?.common}</span>
               </h5>
@@ -68,6 +66,8 @@ const Country = () => {
               <h5>
                 Region: <span>{country?.region}</span>
               </h5>
+            </div>
+            <div className="country-info-container-two">
               <h5>
                 Language(s):{" "}
                 <span>
@@ -80,19 +80,21 @@ const Country = () => {
               <h5>
                 Capital: <span>{country?.capital}</span>
               </h5>
-              <h5>
-                Border Countries:{" "}
-                <span>
+            </div>
+            <div>
+              <h5 className="border-name">Border Countries: </h5>
+              <div className="border-container">
+                <span className="border">
                   {country?.borders?.length > 0
                     ? country?.borders.join(", ")
                     : "N/A"}
                 </span>
-              </h5>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
-    </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 

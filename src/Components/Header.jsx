@@ -1,6 +1,26 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+/>;
+
 import React from "react";
 
 const Header = () => {
+  const changeTheme = () => {
+    const header = document.querySelector(".header");
+    const details = document.querySelectorAll(".details");
+    const borders = document.querySelectorAll(".border");
+
+    details.forEach((detail) => {
+      detail.classList.toggle("light-theme");
+    });
+    header.classList.toggle("light-theme");
+    borders.forEach((border) => {
+      border.classList.toggle("light-theme");
+    });
+    document.body.classList.toggle("light-theme");
+  };
+
   return (
     <>
       <header className="header">
@@ -9,7 +29,9 @@ const Header = () => {
         </div>
 
         <div>
-          <i className="fas fa-moon"></i> Dark Mode
+          <button className="btn-moon" onClick={() => changeTheme()}>
+            <i className="fas fa-moon"></i>
+          </button>
         </div>
       </header>
     </>
