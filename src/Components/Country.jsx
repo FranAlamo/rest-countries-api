@@ -46,7 +46,7 @@ const Country = () => {
             <div className="country-info-container-one">
               <h3 className="country-name">{country?.name?.common}</h3>
               <h5>
-                Native Name: <span>{country?.name?.native?.common}</span>
+                Native Name: <span>{country?.name?.nativeName?.common}</span>
               </h5>
               <h5>
                 Top Level Domain: <span>{country?.tld?.[0] || "N/A"}</span>

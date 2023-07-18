@@ -1,6 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
-function Filter() {
+const Filter = () => {
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    console.log(value);
+    const countryName = document.querySelectorAll(".country-name");
+    countryName.forEach((name) => {
+      if (name.innerText.toLowerCase().includes(value.toLowerCase())) {
+        name.parentElement.parentElement.style.display = "block";
+      } else {
+        name.parentElement.parentElement.style.display = "none";
+      }
+    });
+  };
+
   return (
     <section className="filter">
       <form className="form-control">
@@ -9,6 +25,8 @@ function Filter() {
           name="search"
           id="search"
           placeholder="Search for a country"
+          value={searchValue}
+          onChange={handleSearchChange}
         />
       </form>
       <div>
@@ -23,6 +41,6 @@ function Filter() {
       </div>
     </section>
   );
-}
+};
 
 export default Filter;
