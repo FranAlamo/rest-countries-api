@@ -26,7 +26,6 @@ const CountryInfo = ({
 
       const data = await res.json();
       console.log(data);
-      // Aquí puedes hacer algo con los datos del país
     } catch (error) {
       console.error("Error fetching country data:", error);
     }

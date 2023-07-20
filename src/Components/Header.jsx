@@ -1,9 +1,6 @@
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
-/>;
-
 import React from "react";
+import SunIcon from "../assets/sun.svg";
+import MoonIcon from "../assets/moon.svg";
 
 const Header = () => {
   const changeTheme = () => {
@@ -21,6 +18,8 @@ const Header = () => {
     document.body.classList.toggle("light-theme");
   };
 
+  const isLightTheme = document.body.classList.contains("light-theme");
+
   return (
     <>
       <header className="header">
@@ -30,7 +29,11 @@ const Header = () => {
 
         <div>
           <button className="btn-moon" onClick={() => changeTheme()}>
-            <i className="fas fa-moon"></i>
+            {isLightTheme ? (
+              <img src={SunIcon} alt="Sun Icon" width="20" height="20" />
+            ) : (
+              <img src={MoonIcon} alt="Moon Icon" width="20" height="20" />
+            )}
           </button>
         </div>
       </header>
