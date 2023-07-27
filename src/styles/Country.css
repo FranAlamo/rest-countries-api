@@ -10,16 +10,18 @@
 
 .country-info-container-two {
   margin: 10px 0;
+  font-size: 20px;
+  line-height: 25px;
 }
 .country-info-container-one h3 {
-  font-size: 30px;
+  font-size: 35px;
   line-height: 25px;
   letter-spacing: 1px;
 }
 .country-info-container-one h5 {
   font-weight: 600;
   margin: 4px 0;
-  font-size: 16px;
+  font-size: 18px;
 }
 .country-info-container-one span {
   font-weight: 300;
@@ -38,6 +40,12 @@
 }
 .border.light-theme {
   background-color: white;
+}
+.details.light-theme > h4 {
+  color: #202d36;
+}
+.details.light-theme > p {
+  color: #202d36;
 }
 
 @media (min-width: 992px) {

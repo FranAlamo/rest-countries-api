@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import CountryInfo from "./CountryInfo";
 import { apiURL } from "../components/Api";
 import { Link } from "react-router-dom";
+import "../styles/index.css";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
-  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]); // Initialize as empty array
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
 
@@ -18,6 +19,7 @@ const Countries = () => {
       const response = await fetch(`${apiURL}/all`);
       const data = await response.json();
       setCountries(data);
+      setFilteredCountries(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -43,7 +45,7 @@ const Countries = () => {
   return (
     <div>
       <main>
-        <nav>
+        <nav className="filter">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -56,7 +58,6 @@ const Countries = () => {
               placeholder="Search for a country..."
             />
             <select
-              id="regionFilter"
               value={selectedRegion}
               onChange={(e) => setSelectedRegion(e.target.value)}
             >
@@ -71,7 +72,7 @@ const Countries = () => {
             </select>
           </form>
         </nav>
-        <div className="countries_wrapper">
+        <div className="grid">
           {filteredCountries.map((country, index) => (
             <Link to={`/${index}`} key={index}>
               <CountryInfo

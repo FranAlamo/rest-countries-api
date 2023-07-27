@@ -68,9 +68,7 @@ img {
 .details.light-theme {
   background-color: white;
 }
-.subtitle {
-  font-weight: bold;
-}
+
 /*Filter */
 .filter {
   display: flex;
@@ -80,26 +78,9 @@ img {
   flex-direction: column;
   padding: 20px;
 }
-.filter .form-control {
-  width: 100%;
-}
-.filter .form-control input {
-  background-color: #2b3743;
-  border: none;
-  outline: none;
-  padding: 12px;
-  border-radius: 5px;
-  color: white;
-  font-family: inherit;
-  letter-spacing: 1px;
-  width: 100%;
-  margin: 0 0 30px;
-}
-.filter .form-control input::placeholder {
-  color: white;
-}
 
-.filter .select {
+select,
+input {
   background-color: #2b3743;
   color: white;
   font-family: inherit;
@@ -107,12 +88,23 @@ img {
   width: 200px;
   border: none;
   border-radius: 5px;
-}
-.form input.light-theme,
-.form select.light-theme {
-  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+p,
+h4,
+a {
+  color: white;
+  text-decoration: none;
+}
+.details.light-theme > h4 {
+  color: #202d36;
+}
+.details.light-theme > p {
+  color: #202d36;
+}
 @media (min-width: 640px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);

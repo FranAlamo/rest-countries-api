@@ -34,7 +34,7 @@ const CountryInfo = ({
   return (
     <div className="details">
       <img src={flag} alt={alt} />
-      <div className="country-info">
+      <div className="details">
         <h4>{name}</h4>
         <p>
           <span className="subtitle">Population:</span> {population}
