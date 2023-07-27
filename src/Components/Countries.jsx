@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import CountryInfo from "./CountryInfo";
 import { apiURL } from "../components/Api";
+import { Link } from "react-router-dom";
 
 const Countries = () => {
   const [countries, setCountries] = useState([]);
+  const [filteredCountries, setFilteredCountries] = useState([]);
+  const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedCountry, setSelectedCountry] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -19,20 +23,66 @@ const Countries = () => {
     }
   };
 
+  useEffect(() => {
+    setFilteredCountries(
+      countries.filter((country) => {
+        const regionMatches =
+          selectedRegion === "" ||
+          country.region.toLowerCase() === selectedRegion.toLowerCase();
+        const countryMatches =
+          selectedCountry === "" ||
+          country.name.common
+            .toLowerCase()
+            .includes(selectedCountry.toLowerCase());
+
+        return regionMatches && countryMatches;
+      })
+    );
+  }, [selectedRegion, selectedCountry]);
+
   return (
     <div>
       <main>
-        <div className="grid">
-          {countries.map((country, index) => (
-            <CountryInfo
-              key={index}
-              name={country.name.common}
-              population={country.population}
-              capital={country.capital}
-              region={country.region}
-              flag={country.flags?.png}
-              alt={country.flags?.alt}
+        <nav>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <input
+              value={selectedCountry}
+              onChange={(e) => setSelectedCountry(e.target.value)}
+              type="text"
+              placeholder="Search for a country..."
             />
+            <select
+              id="regionFilter"
+              value={selectedRegion}
+              onChange={(e) => setSelectedRegion(e.target.value)}
+            >
+              <option disabled value="">
+                Filter by Region
+              </option>
+              <option value="Africa">Africa</option>
+              <option value="Americas">America</option>
+              <option value="Asia">Asia</option>
+              <option value="Europe">Europe</option>
+              <option value="Oceania">Oceania</option>
+            </select>
+          </form>
+        </nav>
+        <div className="countries_wrapper">
+          {filteredCountries.map((country, index) => (
+            <Link to={`/${index}`} key={index}>
+              <CountryInfo
+                name={country.name.common}
+                population={country.population}
+                capital={country.capital}
+                region={country.region}
+                flag={country.flags.png}
+                alt={country.flags.alt}
+              />
+            </Link>
           ))}
         </div>
       </main>
