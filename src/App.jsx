@@ -2,7 +2,6 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Countries from "./components/Countries.jsx";
 import Header from "./components/Header.jsx";
-import CountryInfo from "./components/CountryInfo.jsx";
 import Country from "./components/Country.jsx";
 
 function App() {
